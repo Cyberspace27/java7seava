@@ -16,7 +16,7 @@ public class AppStatement {
 
     private Connection con = null;
    // protected Connection con;
-        private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        //private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         private final String DB_URL = "jdbc:mysql://localhost/dbtest";
         //Base de datos credenciales    
         private final String USER = "root";
@@ -24,10 +24,10 @@ public class AppStatement {
     public void conectar(){
         try {
             
-            Class.forName(JDBC_DRIVER);
+            Class.forName("com.mysql.jdbc.Driver");
             con=null;
             
-            con = DriverManager.getConnection(DB_URL,USER,PASS);
+            con = DriverManager.getConnection("jdbc:mysql://localhost/dbtest","root","");
             System.out.println("Conexion exitosa");
         } catch (Exception e) {
             System.out.println("Error de conexion");
@@ -62,7 +62,7 @@ public class AppStatement {
     public static void main(String[] args) throws SQLException {
         AppStatement app = new AppStatement();
         app.conectar();
-        boolean rpta = app.leerStatement(new Persona("Cyberspace", "32"));
+        boolean rpta = app.leerStatement(new Persona("Cyberspace", "32' OR 'M'='M"));
         app.desconectar();
         if (rpta) {
             System.out.println("Verificacion correcta, Ingresando al sistema");
